@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="نظام أنوار - الحل المتكامل لإدارة مدارس تحفيظ القرآن الكريم">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <title>نظام أنوار | إدارة مدارس تحفيظ القرآن الكريم</title>
+  <style>
+    :root {
+      --gold-light: #d4b77d;
+      --gold-dark: #b09061;
+      --emerald-light: #67c9a3;
+      --emerald-dark: #459d78;
+      --sapphire-light: #52a7b4;
+      --sapphire-dark: #457a9d;
+      --ivory: #faf8f5;
+      --parchment: #f9f7f2;
+      --linen: #f5f9f7;
+      --charcoal: #333333;
+      --slate: #666666;
+      --mist: #e9e5dc;
+    }
+    
+    body {
+      font-family: 'Tajawal', sans-serif;
+      color: var(--charcoal);
+      background-color: var(--ivory);
+      overflow-x: hidden;
+    }
+    
+    /* التصميم الفاخر للشريط العلوي */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 30px rgba(176, 144, 97, 0.1);
+      padding: 8px 0;
+      transition: all 0.5s ease;
+      border-bottom: 1px solid rgba(176, 144, 97, 0.1);
+    }
+    
+    .navbar.scrolled {
+      padding: 8px 0;
+      box-shadow: 0 10px 30px rgba(176, 144, 97, 0.15);
+    }
+    
+    .navbar-brand img {
+      height: 60px;
+      transition: all 0.5s ease;
+      filter: drop-shadow(0 3px 5px rgba(176, 144, 97, 0.3));
+    }
+    
+    .navbar.scrolled .navbar-brand img {
+      height: 45px;
+    }
+    
+    .nav-link {
+      color: var(--charcoal);
+      font-weight: 500;
+      margin: 0 12px;
+      position: relative;
+      transition: all 0.3s ease;
+      font-size: 1.05rem;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+      transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+      left: 0;
+      right: auto;
+    }
+    
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--gold-dark);
+    }
+    
+    /* قسم الهيرو الفاخر */
+    .hero-section {
+      background: linear-gradient(135deg, rgba(44, 95, 139, 0.9) 0%, rgba(26, 58, 90, 0.95) 100%), 
+                  url('https://images.unsplash.com/photo-1568219656418-15c329312bf1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 120px 0 100px;
+      position: relative;
+      overflow: hidden;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    }
+    
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+      background-size: 50px 50px;
+      opacity: 0.2;
+    }
+    
+    .hero-title {
+      font-size: 3.2rem;
+      font-weight: 700;
+      line-height: 1.3;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    .hero-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold-dark));
+      margin: 25px 0;
+      border-radius: 2px;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    
+    .hero-image {
+      position: relative;
+      z-index: 2;
+      border-radius: 15px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border: 8px solid rgba(255, 255, 255, 0.15);
+      transform: perspective(1000px) rotateY(-10deg);
+      transition: all 0.5s ease;
+    }
+    
+    .hero-image:hover {
+      transform: perspective(1000px) rotateY(0deg);
+      box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* أزرار فاخرة */
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      color: white;
+      border: none;
+      padding: 12px 35px;
+      font-weight: 600;
+      border-radius: 50px;
+      box-shadow: 0 5px 15px rgba(176, 144, 97, 0.4);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-gold::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: all 0.5s ease;
+    }
+    
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(176, 144, 97, 0.6);
+    }
+    
+    .btn-gold:hover::before {
+      left: 100%;
+    }
+    
+    .btn-outline-gold {
+      background: transparent;
+      color: white;
+      border: 2px solid var(--gold-light);
+      padding: 10px 30px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-outline-gold:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(176, 144, 97, 0.3);
+    }
+    
+    /* العداد الفاخر */
+    .counter-section {
+      background: linear-gradient(135deg, var(--parchment) 0%, var(--linen) 100%);
+      padding: 70px 0;
+      margin-top: -50px;
+      position: relative;
+      z-index: 2;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(176, 144, 97, 0.15);
+    }
+    
+    .counter-box {
+      text-align: center;
+      padding: 30px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      margin: 10px;
+      border-top: 4px solid var(--gold-dark);
+      transition: all 0.4s ease;
+    }
+    
+    .counter-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(176, 144, 97, 0.15);
+    }
+    
+    .counter-icon {
+      font-size: 2.5rem;
+      color: var(--gold-dark);
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--parchment) 0%, white 100%);
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 5px 15px rgba(176, 144, 97, 0.2);
+    }
+    
+    .counter {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin: 15px 0;
+      font-family: 'Tajawal', sans-serif;
+    }
+    
+    .counter-label {
+      font-size: 1.1rem;
+      color: var(--slate);
+      font-weight: 500;
+    }
+    
+    /* عناوين الأقسام الفاخرة */
+    .section-title {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 60px;
+      color: var(--gold-dark);
+      font-weight: 700;
+      font-size: 2.2rem;
+      text-align: center;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      right: 50%;
+      transform: translateX(50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold-dark));
+      border-radius: 2px;
+    }
+    
+    .section-subtitle {
+      color: var(--slate);
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 50px;
+      text-align: center;
+      line-height: 1.7;
+    }
+    
+    .section-padding {
+      padding: 100px 0;
+    }
+    
+    /* بطاقات الميزات الفاخرة */
+    .feature-card {
+      background: white;
+      border-radius: 15px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(176, 144, 97, 0.1);
+      z-index: 1;
+    }
+    
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(176, 144, 97, 0.03) 0%, rgba(255,255,255,0) 100%);
+      z-index: -1;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(176, 144, 97, 0.15);
+    }
+    
+    .feature-icon {
+      font-size: 2.8rem;
+      color: var(--gold-dark);
+      margin-bottom: 25px;
+      background: linear-gradient(135deg, var(--parchment) 0%, white 100%);
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(176, 144, 97, 0.15);
+    }
+    
+    .feature-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--gold-dark);
+      position: relative;
+    }
+    
+    .feature-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: 0;
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold-dark));
+    }
+    
+    .feature-description {
+      font-size: 1.05rem;
+      color: var(--slate);
+      line-height: 1.8;
+    }
+    
+    /* معرض الصور الفاخر */
+    .gallery-section {
+      background: var(--parchment);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .gallery-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="rgba(176,144,97,0.05)" stroke-width="2"/></svg>');
+      background-size: 50px 50px;
+    }
+    
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+    
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      cursor: pointer;
+      height: 250px;
+      object-fit: cover;
+      position: relative;
+    }
+    
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 50%);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(176, 144, 97, 0.25);
+    }
+    
+    .gallery-item:hover::before {
+      opacity: 1;
+    }
+    
+    /* نموذج الاتصال الفاخر */
+    .contact-section {
+      background: linear-gradient(135deg, var(--linen) 0%, var(--parchment) 100%);
+      padding: 100px 0;
+      position: relative;
+    }
+    
+    .contact-form {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      padding: 50px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(176, 144, 97, 0.15);
+    }
+    
+    .contact-form::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold-dark));
+    }
+    
+    .form-control {
+      border: 1px solid rgba(176, 144, 97, 0.2);
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background-color: var(--parchment);
+    }
+    
+    .form-control:focus {
+      border-color: var(--gold-dark);
+      box-shadow: 0 0 0 0.25rem rgba(176, 144, 97, 0.15);
+      background-color: white;
+    }
+    
+    /* بطاقات الأسعار الفاخرة */
+    .pricing-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      padding: 40px 30px;
+      transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(176, 144, 97, 0.1);
+      z-index: 1;
+    }
+    
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(176, 144, 97, 0.03) 0%, rgba(255,255,255,0) 100%);
+      z-index: -1;
+    }
+    
+    .pricing-card.popular {
+      border: 2px solid var(--gold-dark);
+      transform: scale(1.05);
+      box-shadow: 0 20px 50px rgba(176, 144, 97, 0.2);
+    }
+    
+    .pricing-card.popular::after {
+      content: 'الأكثر طلباً';
+      position: absolute;
+      top: 20px;
+      left: -35px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      color: white;
+      padding: 5px 40px;
+      transform: rotate(-45deg);
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(176, 144, 97, 0.3);
+    }
+    
+    .pricing-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin-bottom: 20px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .pricing-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: 50%;
+      transform: translateX(50%);
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold-dark));
+      border-radius: 2px;
+    }
+    
+    .pricing-price {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin: 25px 0;
+      text-align: center;
+    }
+    
+    .pricing-period {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--slate);
+    }
+    
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 30px 0;
+    }
+    
+    .pricing-features li {
+      padding: 12px 0;
+      position: relative;
+      padding-right: 35px;
+      color: var(--slate);
+      line-height: 1.6;
+      border-bottom: 1px dashed rgba(176, 144, 97, 0.2);
+    }
+    
+    .pricing-features li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 0;
+      color: var(--gold-dark);
+      background: var(--parchment);
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    
+    /* الفوتر الفاخر */
+    footer {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-light) 100%);
+      color: white;
+      padding: 60px 0 30px;
+      position: relative;
+      clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 100%);
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+      background-size: 50px 50px;
+      opacity: 0.2;
+    }
+    
+    .footer-logo img {
+      height: 60px;
+      filter: brightness(0) invert(1);
+      margin-bottom: 20px;
+    }
+    
+    .footer-links h4 {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-links h4::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: 0;
+      width: 40px;
+      height: 2px;
+      background: white;
+      opacity: 0.5;
+    }
+    
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      padding-right: 15px;
+    }
+    
+    .footer-links a::before {
+      content: '\f105';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+      padding-right: 25px;
+    }
+    
+    .footer-links a:hover::before {
+      opacity: 1;
+      right: 5px;
+    }
+    
+    .footer-contact i {
+      width: 20px;
+      text-align: center;
+      margin-left: 10px;
+      color: var(--gold-light);
+    }
+    
+    .copyright {
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+    }
+    
+    /* تأثيرات الحركة */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate {
+      animation: fadeInUp 1s ease forwards;
+    }
+    
+    /* التجاوب مع الأجهزة المختلفة */
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+      
+      .pricing-card.popular {
+        transform: scale(1);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .section-padding {
+        padding: 70px 0;
+      }
+      
+      .hero-section {
+        padding: 100px 0 80px;
+        clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+      }
+      
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      
+      .section-title {
+        font-size: 1.6rem;
+      }
+      
+      .counter {
+        font-size: 2.2rem;
+      }
+      
+      .feature-card {
+        padding: 30px 20px;
+      }
+      
+      .contact-form {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- شريط التنقل الفاخر -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="2.png" alt="شعار نظام أنوار">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#home">الرئيسية</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">عن النظام</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#features">المميزات</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">معرض الصور</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#pricing">الأسعار</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">تواصل معنا</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- قسم الهيرو الفاخر -->
+  <!-- قسم الهيرو الفاخر الجديد -->
+<section class="luxury-hero" id="home">
+  <div class="luxury-hero-overlay"></div>
+  <div class="container position-relative">
+    <div class="row align-items-center min-vh-80 py-5">
+      <div class="col-lg-6 text-center text-lg-start">
+        <div class="luxury-hero-content">
+          <div class="luxury-badge animate">الحل الأمثل لتحفيظ القرآن</div>
+          <h1 class="luxury-title animate" style="animation-delay: 0.2s">
+            <span class="luxury-highlight">نظام أنوار</span> لإدارة مدارس 
+            <span class="luxury-quran">القرآن الكريم</span>
+          </h1>
+          <p class="luxury-subtitle animate" style="animation-delay: 0.4s">
+            <span class="luxury-ayah">﴿وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ﴾</span><br>
+            نظام متكامل لإدارة وتنظيم الحلقات القرآنية بأسلوب عصري ومتميز
+          </p>
+          <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start animate" style="animation-delay: 0.6s">
+            <a href="#pricing" class="btn btn-luxury-gold">
+              <i class="fas fa-crown me-2"></i> ابدأ رحلتك الآن
+            </a>
+            <a href="#features" class="btn btn-luxury-outline">
+              <i class="fas fa-gem me-2"></i> اكتشف المميزات
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="luxury-hero-image animate" style="animation-delay: 0.8s">
+          <img src="0.png" alt="نظام أنوار" class="img-fluid">
+          <div class="luxury-frame"></div>
+          <div class="luxury-dots"></div>
+        </div>
+      </div>
+    </div>
+    <div class="luxury-scroll-down animate" style="animation-delay: 1s">
+      <span>اكتشف المزيد</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </div>
+</section>
+
+<!-- إضافة هذه الأنماط CSS -->
+<style>
+  .luxury-hero {
+    position: relative;
+    background: linear-gradient(135deg, #0a2e38 0%, #1a4a5a 100%);
+    color: white;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .luxury-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="rgba(176,144,97,0.1)" stroke-width="0.5"/></svg>');
+    background-size: 60px 60px;
+    opacity: 0.3;
+  }
+  
+  .luxury-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 30px 0;
+  }
+  
+  .luxury-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #b09061, #d4b77d);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(176, 144, 97, 0.3);
+  }
+  
+  .luxury-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .luxury-highlight {
+    color: #d4b77d;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .luxury-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: rgba(212, 183, 125, 0.2);
+    z-index: -1;
+    border-radius: 3px;
+  }
+  
+  .luxury-quran {
+    background: linear-gradient(90deg, #d4b77d, #f8e8c8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+  }
+  
+  .luxury-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+  }
+  
+  .luxury-ayah {
+    color: #d4b77d;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  
+  .btn-luxury-gold {
+    background: linear-gradient(135deg, #b09061, #d4b77d);
+    color: white;
+    border: none;
+    padding: 12px 35px;
+    font-weight: 600;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px rgba(176, 144, 97, 0.3);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-luxury-gold:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(176, 144, 97, 0.4);
+  }
+  
+  .btn-luxury-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid #b09061;
+    padding: 10px 30px;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.4s ease;
+  }
+  
+  .btn-luxury-outline:hover {
+    background: rgba(176, 144, 97, 0.1);
+    color: white;
+    transform: translateY(-5px);
+  }
+  
+  .luxury-hero-image {
+    position: relative;
+    padding: 20px;
+  }
+  
+  .luxury-hero-image img {
+    border-radius: 15px;
+    box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 2;
+    transform: perspective(1000px) rotateY(-15deg);
+    transition: all 0.5s ease;
+  }
+  
+  .luxury-hero-image:hover img {
+    transform: perspective(1000px) rotateY(-5deg);
+  }
+  
+  .luxury-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(212, 183, 125, 0.5);
+    border-radius: 25px;
+    transform: rotate(2deg);
+    pointer-events: none;
+  }
+  
+  .luxury-dots {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(212, 183, 125, 0.2) 20%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  
+  .luxury-scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .luxury-scroll-down:hover {
+    color: #d4b77d;
+    transform: translateX(-50%) translateY(5px);
+  }
+  
+  .luxury-scroll-down i {
+    display: block;
+    font-size: 1.2rem;
+    margin-top: 5px;
+    animation: bounce 2s infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-10px);}
+    60% {transform: translateY(-5px);}
+  }
+</style>
+
+  <!-- إحصائيات سريعة فاخرة -->
+  <section class="counter-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="counter-box animate" style="animation-delay: 0.1s">
+            <div class="counter-icon">
+              <i class="fas fa-school"></i>
+            </div>
+            <h2 class="counter" data-target="150">0</h2>
+            <p class="counter-label">مدرسة ومركز</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="counter-box animate" style="animation-delay: 0.2s">
+            <div class="counter-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h2 class="counter" data-target="1200">0</h2>
+            <p class="counter-label">معلم وإداري</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="counter-box animate" style="animation-delay: 0.3s">
+            <div class="counter-icon">
+              <i class="fas fa-user-graduate"></i>
+            </div>
+            <h2 class="counter" data-target="13500">0</h2>
+            <p class="counter-label">طالب وطالبة</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- عن النظام - تصميم فاخر -->
+  <section id="about" class="section-padding">
+    <div class="container">
+      <h2 class="section-title animate">عن نظام أنوار</h2>
+      <p class="section-subtitle animate" style="animation-delay: 0.2s">نظام متكامل مصمم خصيصاً لإدارة مراكز ومدارس تحفيظ القرآن الكريم بطريقة احترافية وسهلة</p>
+      
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0 animate" style="animation-delay: 0.3s">
+          <div class="position-relative">
+            <img src="1.png" alt="نظام أنوار" class="img-fluid rounded-3 shadow-lg" style="border: 8px solid white;">
+            <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(176, 144, 97, 0.1) 0%, rgba(255,255,255,0) 100%); border-radius: 12px; z-index: -1; transform: rotate(5deg);"></div>
+          </div>
+        </div>
+        <div class="col-lg-6 animate" style="animation-delay: 0.4s">
+          <div class="ps-lg-5">
+            <h3 style="color: var(--gold-dark); font-size: 1.8rem; margin-bottom: 25px; position: relative;">
+              <span style="position: absolute; right: -25px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; background: var(--gold-dark); border-radius: 50%;"></span>
+              الحل الأمثل لإدارة مراكز التحفيظ
+            </h3>
+            <p style="color: var(--slate); line-height: 1.8; margin-bottom: 25px; font-size: 1.1rem;">
+              "أنوار كتاب الله" هو نظام متكامل لإدارة مراكز ومدارس تحفيظ القرآن الكريم، مصمم خصيصًا لتلبية احتياجات المشرفين والمعلمين.
+            </p>
+            <p style="color: var(--slate); line-height: 1.8; margin-bottom: 30px; font-size: 1.1rem;">
+              يقدم النظام حلولًا فعّالة لإدارة الحلقات، وتتبع تقدم الطلاب، وإصدار التقارير بكل سهولة. واجهته البسيطة وميزاته المتقدمة تساعد على تحسين كفاءة العملية التعليمية، مما يجعله الخيار الأمثل لمراكز ومدارس التحفيظ التي تسعى للتميز.
+            </p>
+            <div class="d-flex gap-3">
+              <a href="#features" class="btn btn-gold">المميزات الرئيسية</a>
+              <a href="#contact" style="color: var(--gold-dark);" class="btn btn-outline-gold">طلب نسخة تجريبية</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- مميزات النظام - تصميم فاخر -->
+  <section id="features" class="section-padding bg-light">
+    <div class="container">
+      <h2 class="section-title animate">المميزات الرئيسية</h2>
+      <p class="section-subtitle animate" style="animation-delay: 0.2s">اكتشف القوة الكاملة لنظام أنوار لإدارة مدارس التحفيظ</p>
+      
+      <div class="row">
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.3s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3 class="feature-title">إدارة شؤون الحلقات</h3>
+            <p class="feature-description">يغطي النظام كل ما يخص الطالب والمعلم، من لحظة التسجيل مرورًا بكافة الأنشطة التعليمية والإدارية.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.4s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-user-group"></i>
+            </div>
+            <h3 class="feature-title">إدارة بيانات الكادر والطلاب</h3>
+            <p class="feature-description">تشمل جميع التفاصيل المتعلقة بتسجيل ومتابعة المعلومات، وتحديثها بشكل سهل وسريع.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.5s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <h3 class="feature-title">متابعة الحفظ والمراجعة</h3>
+            <p class="feature-description">يتمكن المعلم من إضافة معلومات الحفظ والمراجعة اليومية للطالب، مما يتيح متابعة الإنجاز بشكل يومي.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.3s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-signal"></i>
+            </div>
+            <h3 class="feature-title">التسميع الإلكتروني</h3>
+            <p class="feature-description">إنشاء حلقات افتراضية مع الطلاب، لاختصار الوقت والجهد، وتعويض الفائت.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.4s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-certificate"></i>
+            </div>
+            <h3 class="feature-title">إصدار التقارير والشهادات</h3>
+            <p class="feature-description">سهولة إصدار التقارير والشهادات، واستخراجها وطباعتها، مما يساعد في توفير الوقت والجهد.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.5s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <h3 class="feature-title">إدارة الإعلانات والمستجدات</h3>
+            <p class="feature-description">سهولة إرسال الأخبار والإعلانات للطلاب وأولياء الأمور، لمتابعة آخر المستجدات.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- مستخدمي النظام - تصميم فاخر -->
+  <section class="section-padding">
+    <div class="container">
+      <h2 class="section-title animate">مستخدمي النظام</h2>
+      <p class="section-subtitle animate" style="animation-delay: 0.2s">نظام أنوار صمم ليلبي احتياجات جميع مستخدمي مركز التحفيظ</p>
+      
+      <div class="row">
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.3s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <h3 class="feature-title">مدير المركز والكادر الإداري</h3>
+            <p class="feature-description">واجهة إدارية شاملة لكل مكونات النظام، توفر ميزات الإضافة والتعديل والحذف والعرض لكافة بيانات المركز بشكل سهل وبسيط.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.4s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-chalkboard-user"></i>
+            </div>
+            <h3 class="feature-title">المعلمين</h3>
+            <p class="feature-description">يتيح النظام للمعلمين إضافة بيانات التسميع والمراجعة والاختبارات وإرسال الرسائل، وكذلك إنشاء حلقات افتراضية.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.5s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-user-group"></i>
+            </div>
+            <h3 class="feature-title">أولياء الأمور والطلاب</h3>
+            <p class="feature-description">يوفر التطبيق إمكانية متابعة إنجاز الطالب بشكل كامل، مدعوماً بنظام إشعارات وتنبيهات دورية.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- مميزات إضافية - تصميم فاخر -->
+  <section class="section-padding bg-light">
+    <div class="container">
+      <h2 class="section-title animate">مميزات إضافية</h2>
+      <p class="section-subtitle animate" style="animation-delay: 0.2s">كل ما تحتاجه لإدارة مركز تحفيظ ناجح ومتميز</p>
+      
+      <div class="row">
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.3s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="feature-title">نظام حماية وأمان</h3>
+            <p class="feature-description">يتمتع النظام بأقوى وسائل الحماية والأمان، مع توفير نسخ احتياطي يومي بشكل تلقائي لضمان عدم فقدان البيانات.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.4s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <h3 class="feature-title">إدارة الشؤون المالية</h3>
+            <p class="feature-description">إدارة المصروفات والإيرادات، مع توفير حسابات بشكل تلقائي، وإمكانية إصدار تقارير دورية.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.5s">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-comment-dots"></i>
+            </div>
+            <h3 class="feature-title">نظام رسائل وتنبيهات</h3>
+            <p class="feature-description">سهولة إرسال الرسائل والتنبيهات للطلاب وأولياء الأمور، مما يوفر عملية متابعة دائمة وفعالة.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- معرض الصور - تصميم فاخر -->
+  <section id="gallery" class="gallery-section">
+    <div class="container">
+      <h2 class="section-title animate">معرض الصور</h2>
+      <p class="section-subtitle animate" style="animation-delay: 0.2s">جولة مرئية داخل واجهات نظام أنوار</p>
+      
+      <div class="gallery animate" style="animation-delay: 0.3s">
+        <img src="0.jpg" alt="واجهة نظام أنوار 1" class="gallery-item">
+        <img src="1.jpg" alt="واجهة نظام أنوار 2" class="gallery-item">
+        <img src="2.jpg" alt="واجهة نظام أنوار 3" class="gallery-item">
+        <img src="3.jpg" alt="واجهة نظام أنوار 4" class="gallery-item">
+        <img src="4.jpg" alt="واجهة نظام أنوار 5" class="gallery-item">
+        <img src="5.jpg" alt="واجهة نظام أنوار 6" class="gallery-item">
+        <img src="6.jpg" alt="واجهة نظام أنوار 7" class="gallery-item">
+        <img src="7.jpg" alt="واجهة نظام أنوار 8" class="gallery-item">
+        <img src="8.jpg" alt="واجهة نظام أنوار 9" class="gallery-item">
+        <img src="9.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="10.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="11.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="12.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="13.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="14.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="15.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="16.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="17.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="18.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="19.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="20.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+        <img src="21.jpg" alt="واجهة نظام أنوار 10" class="gallery-item">
+      </div>
+    </div>
+  </section>
+
+  <!-- الأسعار - تصميم فاخر -->
+  <section id="pricing" class="section-padding">
+    <div class="container">
+      <h2 class="section-title animate">خطط الأسعار</h2>
+      <p class="section-subtitle animate" style="animation-delay: 0.2s">اختر الخطة التي تناسب احتياجات مركز التحفيظ الخاص بك</p>
+      
+      <div class="row">
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.3s">
+          <div class="pricing-card">
+            <h3 class="pricing-title">النسخة الأساسية</h3>
+            <div class="pricing-price">100$</div>
+            <ul class="pricing-features">
+              <li>اشتراك لمدة 12 شهر</li>
+              <li>نظام ويب</li>
+              <li>متابعة التسميع اليومي</li>
+              <li>التسميع الإلكتروني</li>
+              <li>إصدار تقارير الإنجاز</li>
+              <li>التمتع بالميزات الأخرى</li>
+              <li>متابعة من فريق مختص لمدة شهر كامل</li>
+            </ul>
+            <a href="#contact" style="color: var(--gold-dark);" class="btn btn-outline-gold w-100">اختر هذه الخطة</a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.4s">
+          <div class="pricing-card popular">
+            <h3 class="pricing-title">النسخة الاحترافية</h3>
+            <div class="pricing-price">200$</div>
+            <ul class="pricing-features">
+              <li>اشتراك لمدة 12 شهر</li>
+              <li>نظام ويب</li>
+              <li>متابعة التسميع اليومي</li>
+              <li>التسميع الإلكتروني</li>
+              <li>إصدار تقارير الإنجاز</li>
+              <li>إصدار تقارير مالية</li>
+              <li>نظام رسائل وتنبيهات</li>
+              <li>طباعة شهادات فورية</li>
+              <li>نظام متابعة حضور وغياب</li>
+              <li>التمتع بكامل ميزات النظام</li>
+              <li>الاستفادة من تحديثات النظام بشكل دوري</li>
+              <li>متابعة من فريق مختص لمدة 12 شهر</li>
+              <li>حملة إعلانية لحسابات المدرسة/ المركز</li>
+            </ul>
+            <a href="#contact" class="btn btn-gold w-100">اختر هذه الخطة</a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 animate" style="animation-delay: 0.5s">
+          <div class="pricing-card">
+            <h3 class="pricing-title">النسخة الاحترافية</h3>
+            <div class="pricing-price">150$</div>
+            <ul class="pricing-features">
+              <li>اشتراك لمدة 12 شهر</li>
+              <li>نظام ويب</li>
+              <li>متابعة التسميع اليومي</li>
+              <li>التسميع الإلكتروني</li>
+              <li>إصدار تقارير الإنجاز</li>
+              <li>إصدار تقارير مالية</li>
+              <li>نظام متابعة حضور وغياب</li>
+              <li>التمتع بالميزات الأخرى</li>
+              <li>الاستفادة من تحديثات النظام بشكل دوري</li>
+              <li>متابعة من فريق مختص لمدة 4 شهور</li>
+            </ul>
+            <a href="#contact" style="color: var(--gold-dark);" class="btn btn-outline-gold w-100">اختر هذه الخطة</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- نموذج الاتصال - تصميم فاخر -->
+  <!-- استبدال قسم الفورم بهذا القسم -->
+<section id="contact" class="whatsapp-section">
+  <div class="container">
+    <div class="whatsapp-container animate" style="animation-delay: 0.3s">
+      <div class="whatsapp-content">
+        <h2 class="whatsapp-title">
+          <i class="fab fa-whatsapp whatsapp-icon"></i>
+          <span>تواصل معنا الآن</span>
+        </h2>
+        <p class="whatsapp-subtitle">
+          هل لديك استفسار أو ترغب في تجربة النظام؟<br>
+          فريق الدعم جاهز للرد على جميع استفساراتك فوراً
+        </p>
+        <div class="whatsapp-pulse">
+          <a href="https://wa.me/+970592790156" class="whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            تواصل عبر واتساب
+            <span class="whatsapp-arrow">
+              <i class="fas fa-arrow-left"></i>
+            </span>
+          </a>
+        </div>
+        <div class="whatsapp-info">
+          <div class="whatsapp-info-item">
+            <i class="fas fa-clock"></i>
+            <span>متاحون 24/7 للإجابة على استفساراتك</span>
+          </div>
+          <div class="whatsapp-info-item">
+            <i class="fas fa-bolt"></i>
+            <span>رد فوري خلال دقائق معدودة</span>
+          </div>
+        </div>
+      </div>
+      <div class="whatsapp-image">
+        <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="واتساب">
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .whatsapp-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f5f9f7 0%, #e8f3ee 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .whatsapp-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%23459d78" stroke-width="0.3" stroke-dasharray="5,5"/></svg>');
+    opacity: 0.1;
+    transform: rotate(15deg);
+  }
+  
+  .whatsapp-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(69, 157, 120, 0.15);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(69, 157, 120, 0.2);
+  }
+  
+  .whatsapp-content {
+    padding: 50px;
+    flex: 1;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .whatsapp-title {
+    color: #075e54;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .whatsapp-icon {
+    font-size: 3rem;
+    color: #25d366;
+    animation: pulse 2s infinite;
+  }
+  
+  .whatsapp-subtitle {
+    color: #555;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    max-width: 500px;
+  }
+  
+  .whatsapp-pulse {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .whatsapp-btn {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: white;
+    padding: 18px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+  }
+  
+  .whatsapp-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(37, 211, 102, 0.4);
+  }
+  
+  .whatsapp-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #128c7e, #075e54);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: -1;
+  }
+  
+  .whatsapp-btn:hover::before {
+    opacity: 1;
+  }
+  
+  .whatsapp-arrow {
+    margin-right: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .whatsapp-btn:hover .whatsapp-arrow {
+    transform: translateX(-10px);
+  }
+  
+  .whatsapp-info {
+    margin-top: 40px;
+  }
+  
+  .whatsapp-info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    color: #555;
+    font-size: 1rem;
+  }
+  
+  .whatsapp-info-item i {
+    color: #25d366;
+    font-size: 1.2rem;
+  }
+  
+  .whatsapp-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    position: relative;
+  }
+  
+  .whatsapp-image img {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .whatsapp-image::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(37, 211, 102, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  @media (max-width: 992px) {
+    .whatsapp-container {
+      flex-direction: column;
+    }
+    
+    .whatsapp-content {
+      padding: 40px 30px;
+    }
+    
+    .whatsapp-image {
+      padding: 0 30px 30px;
+    }
+    
+    .whatsapp-title {
+      font-size: 2rem;
+    }
+  }
+</style>
+
+  <!-- الفوتر - تصميم فاخر -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <div class="footer-logo">
+            <img src="2.png" alt="شعار نظام أنوار">
+            <p style="color: rgba(255,255,255,0.8); line-height: 1.7; margin-top: 20px;">
+              نظام أنوار هو الحل المتكامل لإدارة مراكز ومدارس تحفيظ القرآن الكريم، صمم خصيصاً لتلبية احتياجات المشرفين والمعلمين.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <div class="footer-links">
+            <h4>روابط سريعة</h4>
+            <ul>
+              <li><a href="#home">الرئيسية</a></li>
+              <li><a href="#about">عن النظام</a></li>
+              <li><a href="#features">المميزات</a></li>
+              <li><a href="#pricing">الأسعار</a></li>
+              <li><a href="#contact">تواصل معنا</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="footer-links">
+            <h4>تواصل معنا</h4>
+            <ul class="footer-contact">
+              <li style="margin-bottom: 15px;">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>فلسطين، قطاع غزة</span>
+              </li>
+              <li style="margin-bottom: 15px;">
+                <i class="fas fa-phone"></i>
+                <span>+970 59 279 0156</span>
+              </li>
+              <li style="margin-bottom: 15px;">
+                <i class="fas fa-envelope"></i>
+                <span>anwarqurangaza@gmail.com</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>جميع الحقوق محفوظة &copy; نظام أنوار <span id="year"></span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- الأكواد البرمجية -->
+  <script>
+    // تحديث سنة الفوتر
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // تأثير التمرير لشريط التنقل
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // العداد
+    function animateCounters() {
+      const counters = document.querySelectorAll('.counter');
+      const speed = 2000;
+      
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / (speed / 16);
+        
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(animateCounters, 16);
+        } else {
+          counter.innerText = target;
+        }
+      });
+    }
+    
+    // تنشيط العداد عند التمرير للقسم
+    function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    }
+    
+    function checkCounters() {
+      const counterSection = document.querySelector('.counter-box');
+      if (isInViewport(counterSection)) {
+        animateCounters();
+        window.removeEventListener('scroll', checkCounters);
+      }
+    }
+    
+    window.addEventListener('scroll', checkCounters);
+    
+    // معرض الصور
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.backgroundColor = 'rgba(0,0,0,0.9)';
+        modal.style.display = 'flex';
+        modal.style.justifyContent = 'center';
+        modal.style.alignItems = 'center';
+        modal.style.zIndex = '10000';
+        modal.style.cursor = 'zoom-out';
+        
+        const img = document.createElement('img');
+        img.src = this.src;
+        img.alt = this.alt;
+        img.style.maxWidth = '90%';
+        img.style.maxHeight = '90%';
+        img.style.borderRadius = '10px';
+        img.style.boxShadow = '0 20px 50px rgba(0,0,0,0.5)';
+        
+        modal.appendChild(img);
+        document.body.appendChild(modal);
+        
+        modal.addEventListener('click', function() {
+          document.body.removeChild(modal);
+        });
+        
+        // إغلاق المعرض عند الضغط على Esc
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            document.body.removeChild(modal);
+          }
+        });
+      });
+    });
+    
+    // إرسال النموذج
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // عرض رسالة نجاح
+      const successMsg = document.createElement('div');
+      successMsg.style.position = 'fixed';
+      successMsg.style.bottom = '30px';
+      successMsg.style.right = '30px';
+      successMsg.style.backgroundColor = 'var(--gold-dark)';
+      successMsg.style.color = 'white';
+      successMsg.style.padding = '20px 30px';
+      successMsg.style.borderRadius = '8px';
+      successMsg.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+      successMsg.style.zIndex = '10000';
+      successMsg.style.display = 'flex';
+      successMsg.style.alignItems = 'center';
+      successMsg.style.gap = '15px';
+      successMsg.innerHTML = `
+        <i class="fas fa-check-circle" style="font-size: 1.5rem;"></i>
+        <div>
+          <h4 style="margin: 0 0 5px 0; font-size: 1.1rem;">تم إرسال طلبك بنجاح!</h4>
+          <p style="margin: 0; opacity: 0.9; font-size: 0.9rem;">سنقوم بالتواصل معك في أقرب وقت.</p>
+        </div>
+      `;
+      
+      document.body.appendChild(successMsg);
+      
+      // إخفاء الرسالة بعد 5 ثواني
+      setTimeout(() => {
+        successMsg.style.opacity = '0';
+        successMsg.style.transform = 'translateY(20px)';
+        successMsg.style.transition = 'all 0.5s ease';
+        setTimeout(() => {
+          document.body.removeChild(successMsg);
+        }, 500);
+      }, 5000);
+      
+      // إعادة تعيين النموذج
+      this.reset();
+    });
+    
+    // تأثيرات الحركة عند التحميل
+    document.addEventListener('DOMContentLoaded', function() {
+      const animateElements = document.querySelectorAll('.animate');
+      animateElements.forEach((element, index) => {
+        element.style.opacity = '0';
+        setTimeout(() => {
+          element.style.opacity = '1';
+        }, index * 200);
+      });
+    });
+  </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
